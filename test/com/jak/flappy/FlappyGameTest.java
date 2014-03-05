@@ -1,6 +1,8 @@
 package com.jak.flappy;
 
+import com.artemis.Entity;
 import com.artemis.World;
+import com.jak.flappy.component.RectangleComponent;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +27,7 @@ public class FlappyGameTest extends TestCase {
 
     @Test
     public void createNinja_CheckIsInTheMiddle() {
-
+        Entity ninja = world.createEntity();
+        ninja.addComponent(new RectangleComponent(0, 0, 0, 0));
     }
 }

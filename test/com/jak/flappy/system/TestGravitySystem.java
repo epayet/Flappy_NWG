@@ -53,7 +53,7 @@ public class TestGravitySystem extends TestCase {
         world.process();
 
         RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
-        assertTrue(rectangle.getX() < 50f);
-        assertEquals(rectangle.getY(), 60f);
+        assertTrue(rectangle.getY() < 60f);
+        assertEquals(rectangle.getX(), 50f);
     }
 }

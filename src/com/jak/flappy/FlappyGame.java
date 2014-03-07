@@ -5,10 +5,7 @@ import com.artemis.World;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.jak.flappy.component.CameraComponent;
-import com.jak.flappy.component.DrawingComponent;
-import com.jak.flappy.component.GravityComponent;
-import com.jak.flappy.component.RectangleComponent;
+import com.jak.flappy.component.*;
 import com.jak.flappy.system.CameraSystem;
 import com.jak.flappy.system.DrawingSystem;
 import com.jak.flappy.system.GravitySystem;
@@ -34,6 +31,7 @@ public class FlappyGame implements ApplicationListener{
         ninja.addComponent(new DrawingComponent(255, 0, 0, 1));
         ninja.addComponent(new CameraComponent(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
         ninja.addComponent(new GravityComponent(10000));
+        ninja.addComponent(new VelocityComponent());
         ninja.addToWorld();
     }
 

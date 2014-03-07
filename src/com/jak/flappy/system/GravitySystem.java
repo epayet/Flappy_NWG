@@ -27,6 +27,6 @@ public class GravitySystem extends EntityProcessingSystem{
         GravityComponent gravity = gravityMapper.get(entity);
         VelocityComponent velocity = velocityMapper.get(entity);
 
-        velocity.setY(-(gravity.getGravity() * world.getDelta() / 1000));
+        velocity.setY(-(gravity.getGravity() * world.getDelta()));
     }
 }

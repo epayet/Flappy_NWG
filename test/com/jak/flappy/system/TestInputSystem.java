@@ -3,10 +3,10 @@ package com.jak.flappy.system;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.badlogic.gdx.Input;
-import com.jak.flappy.component.GravityComponent;
-import com.jak.flappy.component.MockInputComponent;
+import com.jak.flappy.component.mock.MockInputComponent;
 import com.jak.flappy.component.RectangleComponent;
 import com.jak.flappy.component.VelocityComponent;
+import com.jak.flappy.system.mock.MockInputSystem;
 import junit.framework.TestCase;
 import org.junit.Before;
 

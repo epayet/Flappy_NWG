@@ -1,5 +1,6 @@
-package com.jak.flappy.component;
+package com.jak.flappy.component.mock;
 
+import com.jak.flappy.component.InputComponent;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.HashMap;

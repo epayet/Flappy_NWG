@@ -30,8 +30,8 @@ public class VelocitySystem extends EntityProcessingSystem{
         VelocityComponent velocity = velocityMapper.get(entity);
         StayInScreenComponent stayInScreen = stayInScreenMapper.getSafe(entity);
 
-        rectangle.setX(rectangle.getX() + velocity.getX() * world.getDelta() / 1000f);
-        rectangle.setY(rectangle.getY() + velocity.getY() * world.getDelta() / 1000f);
+        rectangle.setX(rectangle.getX() + velocity.getX() * world.getDelta());
+        rectangle.setY(rectangle.getY() + velocity.getY() * world.getDelta());
 
         if(stayInScreen != null ) {
             if(rectangle.getX() < 0) {

@@ -13,6 +13,10 @@ public class RectangleComponent extends Component {
         this.rectangle = new Rectangle(x, y, width, height);
     }
 
+    public RectangleComponent() {
+        this(0, 0, 0, 0);
+    }
+
     public Rectangle getRectangle() {
         return rectangle;
     }

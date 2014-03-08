@@ -1,30 +1,17 @@
 package com.jak.flappy.component;
 
 import com.artemis.Component;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
- * Created by manu on 3/7/14.
+ * Created by manu on 08/03/14.
  */
-public class CameraComponent extends Component {
-    private OrthographicCamera camera;
+public abstract class CameraComponent extends Component {
     private float width;
     private float height;
 
     public CameraComponent(float width, float height) {
         this.width = width;
         this.height = height;
-
-        this.camera = new OrthographicCamera();
-        camera.setToOrtho(false, width, height);
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
     }
 
     public float getHeight() {
@@ -35,11 +22,11 @@ public class CameraComponent extends Component {
         this.height = height;
     }
 
-    public OrthographicCamera getCamera() {
-        return camera;
+    public float getWidth() {
+        return width;
     }
 
-    public void setCamera(OrthographicCamera camera) {
-        this.camera = camera;
+    public void setWidth(float width) {
+        this.width = width;
     }
 }

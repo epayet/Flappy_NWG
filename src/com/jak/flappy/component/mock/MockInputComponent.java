@@ -22,7 +22,7 @@ public class MockInputComponent extends InputComponent {
     }
 
     @Override
-    public boolean isPressed(int key) {
+    public boolean isKeyPressed(int key) {
         return keyPressed == key;
     }
 }

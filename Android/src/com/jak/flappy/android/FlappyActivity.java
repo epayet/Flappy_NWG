@@ -2,14 +2,18 @@ package com.jak.flappy.android;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.jak.flappy.FlappyGame;
 
-public class FlappyActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
+public class FlappyActivity extends AndroidApplication {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+
+        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+        cfg.useGL20 = false;
+
+        initialize(new FlappyGame(), cfg);
     }
 }

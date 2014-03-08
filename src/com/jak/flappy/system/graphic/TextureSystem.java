@@ -1,10 +1,10 @@
-package com.jak.flappy.system;
+package com.jak.flappy.system.graphic;
 
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.jak.flappy.component.RectangleComponent;
-import com.jak.flappy.component.TextureComponent;
+import com.jak.flappy.component.graphic.TextureComponent;
 
 /**
  * Created by manu on 3/7/14.

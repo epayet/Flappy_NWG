@@ -20,11 +20,15 @@ public abstract class InputSystem extends EntityProcessingSystem{
         InputComponent inputComponent = getInputComponent(entity);
         VelocityComponent velocity = getVelocityComponent(entity);
 
-        if(inputComponent.isPressed(Input.Keys.RIGHT)) {
-            velocity.setX(50);
+        float x = 200;
+        if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
+            velocity.setX(x);
         }
-        else if(inputComponent.isPressed(Input.Keys.LEFT)) {
-            velocity.setX(-50);
+        else if(inputComponent.isKeyPressed(Input.Keys.LEFT)) {
+            velocity.setX(-x);
+        }
+        else {
+            velocity.setX(0);
         }
     }
 

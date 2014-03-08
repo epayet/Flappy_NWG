@@ -1,4 +1,4 @@
-package com.jak.flappy.component;
+package com.jak.flappy.component.graphic;
 
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.Color;

@@ -20,7 +20,7 @@ public class LibgdxInputSystem extends InputSystem{
     private ComponentMapper<VelocityComponent> velocityMapper;
 
     public LibgdxInputSystem() {
-        super(Aspect.getAspectForAll(LibgdxInputComponent.class));
+        super(Aspect.getAspectForAll(LibgdxInputComponent.class, VelocityComponent.class));
     }
 
     @Override

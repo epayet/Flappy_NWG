@@ -34,7 +34,7 @@ public class TestInputSystem extends TestCase {
         ninja.addToWorld();
     }
 
-    public void testNinjaMoveRight() {
+    public void testNinjaMoveRight_WithKeyboard() {
         mockInput.setInput(Input.Keys.RIGHT);
         world.setDelta(50);
 
@@ -45,7 +45,7 @@ public class TestInputSystem extends TestCase {
         assertTrue(rectangle.getX() > 50f);
     }
 
-    public void testNinjaMoveLeft() {
+    public void testNinjaMoveLeft_WithKeyboard() {
         mockInput.setInput(Input.Keys.LEFT);
         world.setDelta(50);
 
@@ -54,5 +54,16 @@ public class TestInputSystem extends TestCase {
         RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
         assertEquals(rectangle.getY(), 60f);
         assertTrue(rectangle.getX() < 50f);
+    }
+
+    public void testNinjaMoveRight_WithAccelerometer() {
+        mockInput.setAccelerometerY(10);
+        world.setDelta(50);
+
+        world.process();
+
+        RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
+        assertEquals(rectangle.getY(), 60f);
+        assertTrue("Should be more than 50, value : " + rectangle.getX(), rectangle.getX() > 50f);
     }
 }

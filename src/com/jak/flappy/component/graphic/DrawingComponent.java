@@ -13,6 +13,10 @@ public class DrawingComponent extends Component{
         this.color = new Color(r, g, b, a);
     }
 
+    public DrawingComponent() {
+        this(255, 255, 255, 1);
+    }
+
     public Color getColor() {
         return color;
     }

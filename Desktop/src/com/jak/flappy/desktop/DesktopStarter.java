@@ -2,6 +2,7 @@ package com.jak.flappy.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.jak.flappy.Constants;
 import com.jak.flappy.FlappyGame;
 
 /**
@@ -12,8 +13,8 @@ public class DesktopStarter {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Flappy Ninja With Glasses";
         cfg.useGL20 = true;
-        cfg.width = 800;
-        cfg.height = 600;
+        cfg.width = (int)Constants.WORLD_WIDTH;
+        cfg.height = (int)Constants.WORLD_HEIGHT;
         new LwjglApplication(new FlappyGame(), cfg);
     }
 }

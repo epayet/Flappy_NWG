@@ -5,6 +5,7 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Input;
 import com.jak.flappy.component.InputComponent;
+import com.jak.flappy.component.RectangleComponent;
 import com.jak.flappy.component.VelocityComponent;
 
 /**
@@ -23,6 +24,7 @@ public abstract class InputSystem extends EntityProcessingSystem{
     protected void process(Entity entity) {
         InputComponent inputComponent = getInputComponent(entity);
         VelocityComponent velocity = getVelocityComponent(entity);
+        RectangleComponent rectangle = getRectangleComponent(entity);
 
         float x = 150;
         if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
@@ -40,11 +42,16 @@ public abstract class InputSystem extends EntityProcessingSystem{
             velocity.setX(0);
             acceleration = 0;
         }
+
+        if(inputComponent.isKeyPressed(Input.Keys.SPACE) || inputComponent.isTouched()) {
+            if(rectangle.getY() == 0)
+                velocity.setY(6000);
+        }
     }
 
     private void setAcceleration(int key) {
         if(lastMoveDirection == key)
-            acceleration += 5;
+            acceleration += 10;
         else
             acceleration = 0;
         lastMoveDirection = key;
@@ -52,4 +59,5 @@ public abstract class InputSystem extends EntityProcessingSystem{
 
     protected abstract InputComponent getInputComponent(Entity entity);
     protected abstract VelocityComponent getVelocityComponent(Entity entity);
+    protected abstract RectangleComponent getRectangleComponent(Entity entity);
 }

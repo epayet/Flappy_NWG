@@ -22,4 +22,9 @@ public class LibgdxInputComponent extends InputComponent{
     public boolean isAccelerometerAvailable() {
         return Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
     }
+
+    @Override
+    public boolean isTouched() {
+        return Gdx.input.isTouched();
+    }
 }

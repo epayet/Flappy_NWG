@@ -35,8 +35,8 @@ public abstract class VelocitySystem extends EntityProcessingSystem{
 
             CameraComponent camera = getCameraComponent(entity);
             if(camera != null) {
-                if(rectangle.getY() > camera.getHeight()) {
-                    rectangle.setY(camera.getHeight());
+                if(rectangle.getY() > camera.getHeight() - rectangle.getHeight()) {
+                    rectangle.setY(camera.getHeight() - rectangle.getHeight());
                 }
                 if(rectangle.getX() > camera.getWidth() - rectangle.getWidth()) {
                     rectangle.setX(camera.getWidth() - rectangle.getWidth());

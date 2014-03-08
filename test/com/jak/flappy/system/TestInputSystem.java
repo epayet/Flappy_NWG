@@ -18,6 +18,7 @@ public class TestInputSystem extends TestCase {
     private World world;
     private Entity ninja;
     private MockInputComponent mockInput;
+    private RectangleComponent rectangle;
 
     @Before
     public void setUp() throws Exception {
@@ -27,7 +28,8 @@ public class TestInputSystem extends TestCase {
         world.setSystem(new MockVelocitySystem());
 
         ninja = world.createEntity();
-        ninja.addComponent(new RectangleComponent(50, 60, 50, 50));
+        rectangle = new RectangleComponent(50, 60, 50, 50);
+        ninja.addComponent(rectangle);
         ninja.addComponent(new VelocityComponent());
         mockInput = new MockInputComponent();
         ninja.addComponent(mockInput);
@@ -40,7 +42,6 @@ public class TestInputSystem extends TestCase {
 
         world.process();
 
-        RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
         assertEquals(rectangle.getY(), 60f);
         assertTrue(rectangle.getX() > 50f);
     }
@@ -51,7 +52,6 @@ public class TestInputSystem extends TestCase {
 
         world.process();
 
-        RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
         assertEquals(rectangle.getY(), 60f);
         assertTrue(rectangle.getX() < 50f);
     }
@@ -62,8 +62,36 @@ public class TestInputSystem extends TestCase {
 
         world.process();
 
-        RectangleComponent rectangle = ninja.getComponent(RectangleComponent.class);
         assertEquals(rectangle.getY(), 60f);
         assertTrue("Should be more than 50, value : " + rectangle.getX(), rectangle.getX() > 50f);
+    }
+
+    public void testNinjaCanJump_Keyboard() {
+        mockInput.setInput(Input.Keys.SPACE);
+        rectangle.setY(0);
+        world.setDelta(50);
+
+        world.process();
+
+        assertTrue("Should be more than 0, value : " + rectangle.getY(), rectangle.getY() > 0f);
+    }
+
+    public void testNinjaCanJump_Touched() {
+        mockInput.setTouched(true);
+        rectangle.setY(0);
+        world.setDelta(50);
+
+        world.process();
+
+        assertTrue("Should be more than 0, value : " + rectangle.getY(), rectangle.getY() > 0f);
+    }
+
+    public void testNinjaCannotJumpIfNotInTheGround() {
+        mockInput.setTouched(true);
+        world.setDelta(50);
+
+        world.process();
+
+        assertEquals(60f, rectangle.getY());
     }
 }

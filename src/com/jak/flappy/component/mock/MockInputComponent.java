@@ -13,6 +13,7 @@ public class MockInputComponent extends InputComponent {
     private int keyPressed;
     private float accelerometerY;
     private boolean accelerometerAvailable;
+    private boolean touched;
 
     public MockInputComponent() {
         accelerometerY = 0;
@@ -40,5 +41,14 @@ public class MockInputComponent extends InputComponent {
     @Override
     public boolean isAccelerometerAvailable() {
         return accelerometerAvailable;
+    }
+
+    public void setTouched(boolean touched) {
+        this.touched = touched;
+    }
+
+    @Override
+    public boolean isTouched() {
+        return touched;
     }
 }

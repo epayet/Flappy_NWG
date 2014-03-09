@@ -38,22 +38,22 @@ public class TestInputSystem extends TestCase {
 
     public void testNinjaMoveRight_WithKeyboard() {
         mockInput.setInput(Input.Keys.RIGHT);
-        world.setDelta(50);
+        world.setDelta(1);
 
         world.process();
 
         assertEquals(rectangle.getY(), 60f);
-        assertTrue(rectangle.getX() > 50f);
+        assertTrue("Should be more than 50, value : " + rectangle.getX(), rectangle.getX() > 50f);
     }
 
     public void testNinjaMoveLeft_WithKeyboard() {
         mockInput.setInput(Input.Keys.LEFT);
-        world.setDelta(50);
+        world.setDelta(1);
 
         world.process();
 
         assertEquals(rectangle.getY(), 60f);
-        assertTrue(rectangle.getX() < 50f);
+        assertTrue("Should be less than 50, value : " + rectangle.getX(), rectangle.getX() < 50f);
     }
 
     public void testNinjaMoveRight_WithAccelerometer() {
@@ -67,7 +67,7 @@ public class TestInputSystem extends TestCase {
     }
 
     public void testNinjaCanJump_Keyboard() {
-        mockInput.setInput(Input.Keys.SPACE);
+        mockInput.setKeyUp(Input.Keys.SPACE);
         rectangle.setY(0);
         world.setDelta(50);
 
@@ -77,7 +77,7 @@ public class TestInputSystem extends TestCase {
     }
 
     public void testNinjaCanJump_Touched() {
-        mockInput.setTouched(true);
+        mockInput.setTouchedUp(true);
         rectangle.setY(0);
         world.setDelta(50);
 

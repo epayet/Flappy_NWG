@@ -107,8 +107,8 @@ public class TestScreenLimitedSystem extends TestCase {
 
         world.process();
 
-        assertEquals(0f, circle.getX());
-        assertEquals(0f, circle.getY());
+        assertEquals(10f, circle.getX());
+        assertEquals(10f, circle.getY());
     }
 
     public void testScreenLimited_Circle_Camera() {

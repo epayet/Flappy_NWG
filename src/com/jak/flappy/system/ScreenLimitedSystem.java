@@ -17,27 +17,20 @@ public abstract class ScreenLimitedSystem extends EntityProcessingSystem{
     protected void process(Entity entity) {
         RectangleComponent rectangle = getRectangleComponent(entity);
         CircleComponent circle = getCircleComponent(entity);
-        PositionComponent position = null;
-
-        if(rectangle != null)
-            position = rectangle;
-        if(circle != null)
-            position = circle;
-
-        if(position.getX() < 0) {
-            position.setX(0);
-        }
-        if(position.getY() < 0) {
-            position.setY(0);
-        }
-
         CameraComponent camera = getCameraComponent(entity);
+
         if(rectangle != null) {
             if(rectangle.getY() > camera.getHeight() - rectangle.getHeight()) {
                 rectangle.setY(camera.getHeight() - rectangle.getHeight());
             }
             if(rectangle.getX() > camera.getWidth() - rectangle.getWidth()) {
                 rectangle.setX(camera.getWidth() - rectangle.getWidth());
+            }
+            if(rectangle.getX() < 0) {
+                rectangle.setX(0);
+            }
+            if(rectangle.getY() < 0) {
+                rectangle.setY(0);
             }
         }
 
@@ -47,6 +40,12 @@ public abstract class ScreenLimitedSystem extends EntityProcessingSystem{
             }
             if(circle.getX() > camera.getWidth() - circle.getRadius()) {
                 circle.setX(camera.getWidth() - circle.getRadius());
+            }
+            if(circle.getX() < circle.getRadius()) {
+                circle.setX(circle.getRadius());
+            }
+            if(circle.getY() < circle.getRadius()) {
+                circle.setY(circle.getRadius());
             }
         }
     }

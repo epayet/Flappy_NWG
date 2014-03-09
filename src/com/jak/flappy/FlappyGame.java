@@ -48,10 +48,10 @@ public class FlappyGame implements ApplicationListener{
         //ninja
         Entity ninja = world.createEntity();
         //ninja.addComponent(new RectangleComponent(Constants.WORLD_WIDTH/2, 0, 20, 50));
-        ninja.addComponent(new CircleComponent(Constants.WORLD_WIDTH/2, 0, 20));
+        ninja.addComponent(new CircleComponent(Constants.WORLD_WIDTH/2, Constants.WORLD_HEIGHT/2, 20));
         ninja.addComponent(new DrawingComponent(255, 255, 255, 1));
         ninja.addComponent(cameraComponent);
-        ninja.addComponent(new GravityComponent(25));
+        ninja.addComponent(new GravityComponent(10));
         ninja.addComponent(new StayInScreenComponent());
         ninja.addComponent(inputComponent);
         ninja.addComponent(new VelocityComponent());

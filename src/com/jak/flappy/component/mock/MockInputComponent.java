@@ -11,9 +11,11 @@ import java.util.Map;
  */
 public class MockInputComponent extends InputComponent {
     private int keyPressed;
+    private int keyUpped;
     private float accelerometerY;
     private boolean accelerometerAvailable;
     private boolean touched;
+    private boolean touchedUp;
 
     public MockInputComponent() {
         accelerometerY = 0;
@@ -50,5 +52,23 @@ public class MockInputComponent extends InputComponent {
     @Override
     public boolean isTouched() {
         return touched;
+    }
+
+    @Override
+    public boolean isTouchedUp() {
+        return touchedUp;
+    }
+
+    @Override
+    public boolean isKeyUp(int key) {
+        return keyUpped == key;
+    }
+
+    public void setKeyUp(int key) {
+        this.keyUpped = key;
+    }
+
+    public void setTouchedUp(boolean touchedUp) {
+        this.touchedUp = touchedUp;
     }
 }

@@ -43,8 +43,8 @@ public abstract class InputSystem extends EntityProcessingSystem{
             acceleration = 0;
         }
 
-        if(inputComponent.isKeyPressed(Input.Keys.SPACE) || inputComponent.isTouched()) {
-            velocity.setY(1000);
+        if(inputComponent.isKeyUp(Input.Keys.SPACE) || inputComponent.isTouchedUp()) {
+            velocity.setY(5000);
             if(inputComponent.isKeyPressed(Input.Keys.RIGHT))
                 velocity.setX(1000);
             else if(inputComponent.isKeyPressed(Input.Keys.LEFT))

@@ -10,4 +10,6 @@ public abstract class InputComponent extends Component{
     public abstract float getAccelerometerY();
     public abstract boolean isAccelerometerAvailable();
     public abstract boolean isTouched();
+    public abstract boolean isTouchedUp();
+    public abstract boolean isKeyUp(int key);
 }

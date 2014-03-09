@@ -2,12 +2,22 @@ package com.jak.flappy.component.graphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.jak.flappy.component.InputComponent;
 
 /**
  * Created by manu on 08/03/14.
  */
 public class LibgdxInputComponent extends InputComponent{
+    private boolean keyUpped;
+    private int lastKeyUpped;
+    private boolean touchUpped;
+
+    public LibgdxInputComponent() {
+        MyInputProcessor inputProcessor = new MyInputProcessor();
+        Gdx.input.setInputProcessor(inputProcessor);
+    }
+
     @Override
     public boolean isKeyPressed(int key) {
         return Gdx.input.isKeyPressed(key);
@@ -26,5 +36,70 @@ public class LibgdxInputComponent extends InputComponent{
     @Override
     public boolean isTouched() {
         return Gdx.input.isTouched();
+    }
+
+    @Override
+    public boolean isTouchedUp() {
+        if(touchUpped) {
+            touchUpped = false;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public boolean isKeyUp(int key) {
+        if(keyUpped) {
+            keyUpped = false;
+            return lastKeyUpped == key;
+        }
+        else
+            return false;
+    }
+
+    private class MyInputProcessor implements InputProcessor {
+        @Override
+        public boolean keyDown(int i) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int key) {
+            keyUpped = true;
+            lastKeyUpped = key;
+            return true;
+        }
+
+        @Override
+        public boolean keyTyped(char c) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int i, int i2, int i3, int i4) {
+            return false;
+        }
+
+        @Override
+        public boolean touchUp(int i, int i2, int i3, int i4) {
+            touchUpped = true;
+            return true;
+        }
+
+        @Override
+        public boolean touchDragged(int i, int i2, int i3) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int i, int i2) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int i) {
+            return false;
+        }
     }
 }

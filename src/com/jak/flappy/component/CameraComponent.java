@@ -1,6 +1,7 @@
 package com.jak.flappy.component;
 
 import com.artemis.Component;
+import com.jak.flappy.component.graphic.Preparable;
 
 /**
  * Created by manu on 08/03/14.

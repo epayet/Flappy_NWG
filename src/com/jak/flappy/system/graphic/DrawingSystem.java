@@ -11,6 +11,7 @@ import com.jak.flappy.component.CircleComponent;
 import com.jak.flappy.component.graphic.LibgdxCameraComponent;
 import com.jak.flappy.component.graphic.DrawingComponent;
 import com.jak.flappy.component.RectangleComponent;
+import com.jak.flappy.component.graphic.ShapeRendererComponent;
 
 /**
  * Created by manu on 3/7/14.
@@ -24,9 +25,11 @@ public class DrawingSystem extends EntityProcessingSystem{
     ComponentMapper<LibgdxCameraComponent> cameraMapper;
     @Mapper
     ComponentMapper<CircleComponent> circleMapper;
+    @Mapper
+    ComponentMapper<ShapeRendererComponent> shapeRendererMapper;
 
     public DrawingSystem() {
-        super(Aspect.getAspectForAll(DrawingComponent.class, LibgdxCameraComponent.class));
+        super(Aspect.getAspectForAll(DrawingComponent.class, LibgdxCameraComponent.class, ShapeRendererComponent.class));
     }
 
     @Override
@@ -35,11 +38,11 @@ public class DrawingSystem extends EntityProcessingSystem{
         LibgdxCameraComponent cameraComponent = cameraMapper.get(entity);
         RectangleComponent rectangle = rectangleMapper.getSafe(entity);
         CircleComponent circle = circleMapper.get(entity);
+        ShapeRendererComponent shapeRendererComponent = shapeRendererMapper.get(entity);
+        ShapeRenderer shapeRenderer = shapeRendererComponent.getShapeRenderer();
 
         Camera camera = cameraComponent.getCamera();
         if(rectangle != null || circle != null) {
-            ShapeRenderer shapeRenderer = new ShapeRenderer();
-            shapeRenderer.setProjectionMatrix(camera.combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(drawing.getColor());
 

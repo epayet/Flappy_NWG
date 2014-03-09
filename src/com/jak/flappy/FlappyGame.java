@@ -7,7 +7,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.jak.flappy.component.*;
 import com.jak.flappy.component.debug.DebubInfoComponent;
 import com.jak.flappy.component.graphic.*;
@@ -21,17 +25,30 @@ import com.jak.flappy.system.GravitySystem;
  */
 public class FlappyGame implements ApplicationListener{
     private World world;
+    private Array<Disposable> componentsToDispose;
+    private Array<Preparable> componentsToPrepare;
     private Camera camera;
-    private SpriteBatch spriteBatch;
 
     @Override
     public void create() {
+        componentsToDispose = new Array<Disposable>();
+        componentsToPrepare = new Array<Preparable>();
+
         //Libgdx specific
         LibgdxCameraComponent cameraComponent = new LibgdxCameraComponent(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         camera = cameraComponent.getCamera();
-        LibgdxInputComponent inputComponent = new LibgdxInputComponent();
         SpriteBatchComponent spriteBatchComponent = new SpriteBatchComponent();
-        spriteBatch = spriteBatchComponent.getSpriteBatch();
+        ShapeRendererComponent shapeRendererComponent = new ShapeRendererComponent();
+        BitmapFontComponent bitmapFontComponent = new BitmapFontComponent("calibri.png", "calibri.fnt", "fonts");
+        LibgdxInputComponent inputComponent = new LibgdxInputComponent();
+
+        componentsToDispose.add(bitmapFontComponent);
+        componentsToDispose.add(spriteBatchComponent);
+        componentsToDispose.add(shapeRendererComponent);
+
+        componentsToPrepare.add(shapeRendererComponent);
+        componentsToPrepare.add(spriteBatchComponent);
+
 
         //world
         world = new World();
@@ -50,6 +67,7 @@ public class FlappyGame implements ApplicationListener{
         //ninja.addComponent(new RectangleComponent(Constants.WORLD_WIDTH/2, 0, 20, 50));
         ninja.addComponent(new CircleComponent(Constants.WORLD_WIDTH/2, Constants.WORLD_HEIGHT/2, 20));
         ninja.addComponent(new DrawingComponent(255, 255, 255, 1));
+        ninja.addComponent(shapeRendererComponent);
         ninja.addComponent(cameraComponent);
         ninja.addComponent(new GravityComponent(10));
         ninja.addComponent(new StayInScreenComponent());
@@ -61,7 +79,7 @@ public class FlappyGame implements ApplicationListener{
         Entity debugInfo = world.createEntity();
         debugInfo.addComponent(new DebubInfoComponent());
         debugInfo.addComponent(spriteBatchComponent);
-        debugInfo.addComponent(new BitmapFontComponent("calibri.png", "calibri.fnt", "fonts"));
+        debugInfo.addComponent(bitmapFontComponent);
         debugInfo.addComponent(new DrawingComponent(255, 255, 255, 1));
         debugInfo.addComponent(cameraComponent);
         debugInfo.addComponent(inputComponent);
@@ -70,11 +88,7 @@ public class FlappyGame implements ApplicationListener{
 
     @Override
     public void render() {
-        //libgdx
-        Gdx.gl.glClearColor(0, 0, 0f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        spriteBatch.setProjectionMatrix(camera.combined);
+        prepareCameraAndComponents();
 
         //world
         world.setDelta(Gdx.graphics.getDeltaTime());
@@ -98,6 +112,19 @@ public class FlappyGame implements ApplicationListener{
 
     @Override
     public void dispose() {
-        spriteBatch.dispose();
+        for(Disposable disposableComponent : componentsToDispose) {
+            disposableComponent.dispose();
+        }
+    }
+
+    private void prepareCameraAndComponents() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        camera.update();
+
+        for(Preparable preparableComponent : componentsToPrepare) {
+            preparableComponent.prepare(camera);
+        }
     }
 }

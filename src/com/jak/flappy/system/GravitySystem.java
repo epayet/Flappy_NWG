@@ -19,7 +19,7 @@ public class GravitySystem extends EntityProcessingSystem{
     private ComponentMapper<VelocityComponent> velocityMapper;
 
     public GravitySystem() {
-        super(Aspect.getAspectForAll(GravityComponent.class, RectangleComponent.class, VelocityComponent.class));
+        super(Aspect.getAspectForAll(GravityComponent.class, VelocityComponent.class));
     }
 
     @Override

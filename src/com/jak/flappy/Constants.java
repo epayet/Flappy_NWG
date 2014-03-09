@@ -6,4 +6,5 @@ package com.jak.flappy;
 public class Constants {
     public static final float WORLD_WIDTH = 800;
     public static final float WORLD_HEIGHT= 600;
+    public static final String GROUP_FLAPPY = "flappy";
 }

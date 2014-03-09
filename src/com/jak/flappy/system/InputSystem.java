@@ -36,6 +36,7 @@ public abstract class InputSystem extends EntityProcessingSystem{
             velocity.setX(-x - acceleration);
         }
         else if(inputComponent.isAccelerometerAvailable()) {
+            //between -10 and 10
             velocity.setX(inputComponent.getAccelerometerY() * 100);
         }
         else {
@@ -44,8 +45,13 @@ public abstract class InputSystem extends EntityProcessingSystem{
         }
 
         if(inputComponent.isKeyPressed(Input.Keys.SPACE) || inputComponent.isTouched()) {
-            if(rectangle.getY() == 0)
-                velocity.setY(6000);
+            if(rectangle.getY() == 0) {
+                velocity.setY(8000);
+                if(inputComponent.isKeyPressed(Input.Keys.RIGHT))
+                    velocity.setX(1000);
+                else if(inputComponent.isKeyPressed(Input.Keys.LEFT))
+                    velocity.setX(-1000);
+            }
         }
     }
 

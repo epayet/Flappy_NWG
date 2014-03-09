@@ -7,6 +7,7 @@ import com.jak.flappy.component.CameraComponent;
 import com.jak.flappy.component.RectangleComponent;
 import com.jak.flappy.component.StayInScreenComponent;
 import com.jak.flappy.component.VelocityComponent;
+import com.jak.flappy.component.CircleComponent;
 import com.jak.flappy.component.graphic.LibgdxCameraComponent;
 import com.jak.flappy.system.VelocitySystem;
 
@@ -17,15 +18,13 @@ public class LibgdxVelocitySystem extends VelocitySystem {
     @Mapper
     private ComponentMapper<RectangleComponent> rectangleMapper;
     @Mapper
+    private ComponentMapper<CircleComponent> circleMapper;
+    @Mapper
     private ComponentMapper<VelocityComponent> velocityMapper;
-    @Mapper
-    private ComponentMapper<StayInScreenComponent> stayInScreenMapper;
-    @Mapper
-    ComponentMapper<LibgdxCameraComponent> cameraMapper;
 
     @Override
-    protected CameraComponent getCameraComponent(Entity entity) {
-        return cameraMapper.get(entity);
+    protected CircleComponent getCircleComponent(Entity entity) {
+        return circleMapper.get(entity);
     }
 
     @Override
@@ -36,10 +35,5 @@ public class LibgdxVelocitySystem extends VelocitySystem {
     @Override
     protected VelocityComponent getVelocityComponent(Entity entity) {
         return velocityMapper.get(entity);
-    }
-
-    @Override
-    protected StayInScreenComponent getStayInScreenComponent(Entity entity) {
-        return stayInScreenMapper.getSafe(entity);
     }
 }

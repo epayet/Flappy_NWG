@@ -5,11 +5,11 @@ import com.artemis.World;
 import com.jak.flappy.component.GravityComponent;
 import com.jak.flappy.component.RectangleComponent;
 import com.jak.flappy.component.VelocityComponent;
+import com.jak.flappy.component.CircleComponent;
 import com.jak.flappy.system.mock.MockVelocitySystem;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Created by manu on 3/6/14.
@@ -29,11 +29,6 @@ public class TestGravitySystem extends TestCase {
         ninja.addComponent(new RectangleComponent(50 ,60, 50 , 50));
         ninja.addComponent(new VelocityComponent());
         ninja.addToWorld();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
     }
 
     public void testGravity0_NinjaDoesntMove() {

@@ -14,6 +14,10 @@ public class CircleComponent extends PositionComponent {
         circle = new Circle(x, y, radius);
     }
 
+    public CircleComponent() {
+        this(0, 0, 0);
+    }
+
     @Override
     public float getY() {
         return circle.y;
@@ -40,5 +44,13 @@ public class CircleComponent extends PositionComponent {
 
     public void setRadius(float radius) {
         circle.radius = radius;
+    }
+
+    public void setCircle(Circle circle) {
+        this.circle = circle;
+    }
+
+    public Circle getCircle() {
+        return circle;
     }
 }

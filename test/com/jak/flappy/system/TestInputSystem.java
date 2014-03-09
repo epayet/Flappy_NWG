@@ -85,13 +85,4 @@ public class TestInputSystem extends TestCase {
 
         assertTrue("Should be more than 0, value : " + rectangle.getY(), rectangle.getY() > 0f);
     }
-
-    public void testNinjaCannotJumpIfNotInTheGround() {
-        mockInput.setTouched(true);
-        world.setDelta(50);
-
-        world.process();
-
-        assertEquals(60f, rectangle.getY());
-    }
 }

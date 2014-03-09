@@ -24,7 +24,6 @@ public abstract class InputSystem extends EntityProcessingSystem{
     protected void process(Entity entity) {
         InputComponent inputComponent = getInputComponent(entity);
         VelocityComponent velocity = getVelocityComponent(entity);
-        RectangleComponent rectangle = getRectangleComponent(entity);
 
         float x = 150;
         if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
@@ -45,13 +44,11 @@ public abstract class InputSystem extends EntityProcessingSystem{
         }
 
         if(inputComponent.isKeyPressed(Input.Keys.SPACE) || inputComponent.isTouched()) {
-            if(rectangle.getY() == 0) {
-                velocity.setY(8000);
-                if(inputComponent.isKeyPressed(Input.Keys.RIGHT))
-                    velocity.setX(1000);
-                else if(inputComponent.isKeyPressed(Input.Keys.LEFT))
-                    velocity.setX(-1000);
-            }
+            velocity.setY(1000);
+            if(inputComponent.isKeyPressed(Input.Keys.RIGHT))
+                velocity.setX(1000);
+            else if(inputComponent.isKeyPressed(Input.Keys.LEFT))
+                velocity.setX(-1000);
         }
     }
 

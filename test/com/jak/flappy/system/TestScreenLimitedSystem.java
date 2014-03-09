@@ -2,7 +2,9 @@ package com.jak.flappy.system;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import com.jak.flappy.component.CircleComponent;
 import com.jak.flappy.component.RectangleComponent;
 import com.jak.flappy.component.StayInScreenComponent;
 import com.jak.flappy.component.VelocityComponent;
@@ -20,6 +22,8 @@ public class TestScreenLimitedSystem extends TestCase {
     private RectangleComponent rectangle;
     private Entity ninja;
     private VelocityComponent velocity;
+    private Entity flappy;
+    private CircleComponent circle;
 
     @Before
     public void setUp() {
@@ -28,24 +32,34 @@ public class TestScreenLimitedSystem extends TestCase {
         world.setSystem(new MockVelocitySystem());
         world.setSystem(new MockScreenLimitedSystem());
 
+        MockCameraComponent cameraComponent = new MockCameraComponent(800, 600);
+
         ninja = world.createEntity();
         velocity = new VelocityComponent();
         ninja.addComponent(velocity);
         rectangle = new RectangleComponent();
         ninja.addComponent(rectangle);
+        ninja.addComponent(cameraComponent);
         ninja.addToWorld();
+
+        flappy = world.createEntity();
+        flappy.addComponent(velocity);
+        circle = new CircleComponent();
+        flappy.addComponent(circle);
+        flappy.addComponent(cameraComponent);
+        flappy.addToWorld();
     }
 
     public void test_ScreenLimited_AddVelocityX_LimitedBy0() {
         ninja.addComponent(new StayInScreenComponent());
-        rectangle.setRectangle(new Rectangle(0.1f, 60, 50 ,50));
+        rectangle.setRectangle(new Rectangle(0.1f, 20, 50 ,50));
         velocity.setX(-50);
         world.setDelta(50);
 
         world.process();
 
         assertEquals(0f, rectangle.getX());
-        assertEquals(60f, rectangle.getY());
+        assertEquals(20f, rectangle.getY());
     }
 
     public void test_NoScreenLimited_AddVelocityX_IsNegative() {
@@ -75,11 +89,38 @@ public class TestScreenLimitedSystem extends TestCase {
         rectangle.setRectangle(new Rectangle(89, 60, 10 ,50));
         ninja.addComponent(new StayInScreenComponent());
         velocity.setX(50);
+        velocity.setY(50);
         world.setDelta(50);
-        ninja.addComponent(new MockCameraComponent(100, 100));
 
         world.process();
 
-        assertEquals(90f, rectangle.getX());
+        assertEquals(790f, rectangle.getX());
+        assertEquals(550f, rectangle.getY());
+    }
+
+    public void testScreenLimitedCircle() {
+        circle.setCircle(new Circle(10, 50, 10));
+        flappy.addComponent(new StayInScreenComponent());
+        velocity.setX(-50);
+        velocity.setY(-50);
+        world.setDelta(50);
+
+        world.process();
+
+        assertEquals(0f, circle.getX());
+        assertEquals(0f, circle.getY());
+    }
+
+    public void testScreenLimited_Circle_Camera() {
+        circle.setCircle(new Circle(10, 50, 10));
+        flappy.addComponent(new StayInScreenComponent());
+        velocity.setX(50);
+        velocity.setY(50);
+        world.setDelta(50);
+
+        world.process();
+
+        assertEquals(790f, circle.getX());
+        assertEquals(590f, circle.getY());
     }
 }

@@ -43,11 +43,11 @@ public class WorldManager {
         //ninja.addComponent(new RectangleComponent(Constants.WORLD_WIDTH/2, 0, 20, 50));
         flappy.addComponent(new CircleComponent(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 20));
         flappy.addComponent(new DrawingComponent(255, 255, 255, 1));
-        flappy.addComponent(reusableComponents.get("shapeRenderer"));
-        flappy.addComponent(reusableComponents.get("camera"));
+        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_SHAPERENDERER));
+        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_CAMERA));
         flappy.addComponent(new GravityComponent(10));
         flappy.addComponent(new StayInScreenComponent());
-        flappy.addComponent(reusableComponents.get("input"));
+        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_INPUT));
         flappy.addComponent(new VelocityComponent());
         flappy.addToWorld();
     }
@@ -55,11 +55,11 @@ public class WorldManager {
     public void createDebugInfoEntity() {
         Entity debugInfo = world.createEntity();
         debugInfo.addComponent(new DebubInfoComponent());
-        debugInfo.addComponent(reusableComponents.get("spriteBatch"));
-        debugInfo.addComponent(reusableComponents.get("font"));
+        debugInfo.addComponent(reusableComponents.get(Constants.COMPONENT_SPRITEBATCH));
+        debugInfo.addComponent(reusableComponents.get(Constants.COMPONENT_FONT));
         debugInfo.addComponent(new DrawingComponent(255, 255, 255, 1));
-        debugInfo.addComponent(reusableComponents.get("camera"));
-        debugInfo.addComponent(reusableComponents.get("input"));
+        debugInfo.addComponent(reusableComponents.get(Constants.COMPONENT_CAMERA));
+        debugInfo.addComponent(reusableComponents.get(Constants.COMPONENT_INPUT));
         debugInfo.addToWorld();
     }
 
@@ -104,11 +104,11 @@ public class WorldManager {
         SpriteBatchComponent spriteBatchComponent = new SpriteBatchComponent();
         ShapeRendererComponent shapeRendererComponent = new ShapeRendererComponent();
 
-        reusableComponents.put("camera", cameraComponent);
-        reusableComponents.put("spriteBatch", spriteBatchComponent);
-        reusableComponents.put("shapeRenderer", shapeRendererComponent);
-        reusableComponents.put("font", bitmapFontComponent);
-        reusableComponents.put("input", new LibgdxInputComponent());
+        reusableComponents.put(Constants.COMPONENT_CAMERA, cameraComponent);
+        reusableComponents.put(Constants.COMPONENT_SPRITEBATCH, spriteBatchComponent);
+        reusableComponents.put(Constants.COMPONENT_SHAPERENDERER, shapeRendererComponent);
+        reusableComponents.put(Constants.COMPONENT_FONT, bitmapFontComponent);
+        reusableComponents.put(Constants.COMPONENT_INPUT, new LibgdxInputComponent());
 
         componentsToDispose.add(bitmapFontComponent);
         componentsToDispose.add(spriteBatchComponent);

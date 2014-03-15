@@ -35,9 +35,4 @@ public class LibgdxInputSystem extends InputSystem{
     protected VelocityComponent getVelocityComponent(Entity entity) {
         return velocityMapper.get(entity);
     }
-
-    @Override
-    protected RectangleComponent getRectangleComponent(Entity entity) {
-        return rectangleMapper.get(entity);
-    }
 }

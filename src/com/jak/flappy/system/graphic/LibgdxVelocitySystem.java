@@ -24,7 +24,7 @@ public class LibgdxVelocitySystem extends VelocitySystem {
 
     @Override
     protected CircleComponent getCircleComponent(Entity entity) {
-        return circleMapper.get(entity);
+        return circleMapper.getSafe(entity);
     }
 
     @Override

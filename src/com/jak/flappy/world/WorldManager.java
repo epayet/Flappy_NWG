@@ -15,6 +15,7 @@ import com.jak.flappy.component.*;
 import com.jak.flappy.component.debug.DebubInfoComponent;
 import com.jak.flappy.component.graphic.*;
 import com.jak.flappy.system.GravitySystem;
+import com.jak.flappy.system.SpawnNinjaSystem;
 import com.jak.flappy.system.debug.DebugInfoSystem;
 import com.jak.flappy.system.graphic.DrawingSystem;
 import com.jak.flappy.system.graphic.LibgdxInputSystem;
@@ -34,8 +35,8 @@ public class WorldManager {
     public WorldManager() {
         componentsToDispose = new Array<Disposable>();
         componentsToPrepare = new Array<Preparable>();
-        initializeWorld();
         createReusableComponents();
+        initializeWorld();
     }
 
     public void createFlappyEntity() {
@@ -90,7 +91,7 @@ public class WorldManager {
         world.setSystem(new LibgdxScreenLimitedSystem());
         world.setSystem(new DrawingSystem());
         world.setSystem(new GravitySystem());
-        //world.setSystem(new SpawnFlappySystem(2, cameraComponent));
+        world.setSystem(new SpawnNinjaSystem(reusableComponents));
         world.setSystem(new LibgdxInputSystem());
         world.setSystem(new LibgdxVelocitySystem());
         world.setSystem(new DebugInfoSystem());

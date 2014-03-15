@@ -9,10 +9,14 @@ import com.badlogic.gdx.utils.Disposable;
  * Created by manu on 09/03/14.
  */
 public class ShapeRendererComponent extends Component implements Preparable, Disposable{
-    private final ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer;
 
     public  ShapeRendererComponent() {
         this.shapeRenderer = new ShapeRenderer();
+    }
+
+    public ShapeRendererComponent(boolean noGraphicInit) {
+
     }
 
     public ShapeRenderer getShapeRenderer() {

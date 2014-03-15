@@ -12,12 +12,9 @@ import com.jak.flappy.component.VelocityComponent;
  * Created by manu on 3/7/14.
  */
 public abstract class InputSystem extends EntityProcessingSystem{
-    private int acceleration;
-    private int lastMoveDirection;
 
     public InputSystem(Aspect aspect) {
         super(aspect);
-        acceleration = 0;
     }
 
     @Override
@@ -27,12 +24,10 @@ public abstract class InputSystem extends EntityProcessingSystem{
 
         float x = 150;
         if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
-            setAcceleration(Input.Keys.RIGHT);
-            velocity.setX(x + acceleration);
+            velocity.setX(x);
         }
         else if(inputComponent.isKeyPressed(Input.Keys.LEFT)) {
-            setAcceleration(Input.Keys.LEFT);
-            velocity.setX(-x - acceleration);
+            velocity.setX(-x);
         }
         else if(inputComponent.isAccelerometerAvailable()) {
             //between -10 and 10
@@ -40,7 +35,6 @@ public abstract class InputSystem extends EntityProcessingSystem{
         }
         else {
             velocity.setX(0);
-            acceleration = 0;
         }
 
         if(inputComponent.isKeyUp(Input.Keys.SPACE) || inputComponent.isTouchedUp()) {
@@ -52,15 +46,6 @@ public abstract class InputSystem extends EntityProcessingSystem{
         }
     }
 
-    private void setAcceleration(int key) {
-        if(lastMoveDirection == key)
-            acceleration += 10;
-        else
-            acceleration = 0;
-        lastMoveDirection = key;
-    }
-
     protected abstract InputComponent getInputComponent(Entity entity);
     protected abstract VelocityComponent getVelocityComponent(Entity entity);
-    protected abstract RectangleComponent getRectangleComponent(Entity entity);
 }

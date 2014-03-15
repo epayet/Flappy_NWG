@@ -37,7 +37,7 @@ public class DrawingSystem extends EntityProcessingSystem{
         DrawingComponent drawing = drawingMapper.get(entity);
         LibgdxCameraComponent cameraComponent = cameraMapper.get(entity);
         RectangleComponent rectangle = rectangleMapper.getSafe(entity);
-        CircleComponent circle = circleMapper.get(entity);
+        CircleComponent circle = circleMapper.getSafe(entity);
         ShapeRendererComponent shapeRendererComponent = shapeRendererMapper.get(entity);
         ShapeRenderer shapeRenderer = shapeRendererComponent.getShapeRenderer();
 

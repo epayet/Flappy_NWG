@@ -12,4 +12,6 @@ public class Constants {
     public static final String COMPONENT_SHAPERENDERER = "shapeRenderer";
     public static final String COMPONENT_FONT = "font";
     public static final String COMPONENT_INPUT = "input";
+    public static final String COMPONENT_DEBUGRENDERER = "debugRenderer";
+    public static final String COMPONENT_PHYSICWORLD = "physicWorld";
 }

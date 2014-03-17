@@ -22,7 +22,7 @@ public abstract class InputSystem extends EntityProcessingSystem{
         InputComponent inputComponent = getInputComponent(entity);
         VelocityComponent velocity = getVelocityComponent(entity);
 
-        float x = 150;
+        float x = 400;
         if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
             velocity.setX(x);
         }

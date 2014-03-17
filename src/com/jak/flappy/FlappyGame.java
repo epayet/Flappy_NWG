@@ -13,6 +13,7 @@ public class FlappyGame implements ApplicationListener {
     public void create() {
         worldManager = new WorldManager();
         worldManager.createFlappyEntity();
+        worldManager.createGroundEntity();
         worldManager.createDebugInfoEntity();
     }
 

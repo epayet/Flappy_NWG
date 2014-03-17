@@ -7,6 +7,7 @@ import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -14,13 +15,9 @@ import com.jak.flappy.Constants;
 import com.jak.flappy.component.*;
 import com.jak.flappy.component.debug.DebubInfoComponent;
 import com.jak.flappy.component.graphic.*;
-import com.jak.flappy.system.GravitySystem;
-import com.jak.flappy.system.SpawnNinjaSystem;
+import com.jak.flappy.component.graphic.physics.*;
 import com.jak.flappy.system.debug.DebugInfoSystem;
 import com.jak.flappy.system.graphic.DrawingSystem;
-import com.jak.flappy.system.graphic.LibgdxInputSystem;
-import com.jak.flappy.system.graphic.LibgdxScreenLimitedSystem;
-import com.jak.flappy.system.graphic.LibgdxVelocitySystem;
 
 /**
  * Created by manu on 09/03/14.
@@ -42,15 +39,39 @@ public class WorldManager {
     public void createFlappyEntity() {
         Entity flappy = world.createEntity();
         //ninja.addComponent(new RectangleComponent(Constants.WORLD_WIDTH/2, 0, 20, 50));
-        flappy.addComponent(new CircleComponent(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 20));
-        flappy.addComponent(new DrawingComponent(255, 255, 255, 1));
-        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_SHAPERENDERER));
-        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_CAMERA));
-        flappy.addComponent(new GravityComponent(10));
-        flappy.addComponent(new StayInScreenComponent());
-        flappy.addComponent(reusableComponents.get(Constants.COMPONENT_INPUT));
-        flappy.addComponent(new VelocityComponent());
+        float y = Constants.WORLD_HEIGHT / 2;
+        float x = Constants.WORLD_WIDTH / 2;
+        int radius = 20;
+        //flappy.addComponent(new CircleComponent(x, y, radius));
+        //flappy.addComponent(new DrawingComponent(255, 255, 255, 1));
+        //flappy.addComponent(reusableComponents.get(Constants.COMPONENT_SHAPERENDERER));
+        /*LibgdxCameraComponent cameraComponent = (LibgdxCameraComponent) reusableComponents.get(Constants.COMPONENT_CAMERA);
+        flappy.addComponent(cameraComponent);*/
+        //flappy.addComponent(new GravityComponent(10));
+        //flappy.addComponent(new StayInScreenComponent());
+        //flappy.addComponent(reusableComponents.get(Constants.COMPONENT_INPUT));
+        //flappy.addComponent(new VelocityComponent());
+
+        PhysicWorldComponent worldComponent = (PhysicWorldComponent) reusableComponents.get(Constants.COMPONENT_PHYSICWORLD);
+        PhysicBodyComponent physicBodyDefinitionComponent = new PhysicBodyComponent(BodyDef.BodyType.DynamicBody, worldComponent.getWorld(), x, y);
+        flappy.addComponent(physicBodyDefinitionComponent);
+
+        CircleShapeComponent circleShapeComponent = new CircleShapeComponent(radius);
+        flappy.addComponent(circleShapeComponent);
+        flappy.addComponent(new FixtureComponent(circleShapeComponent.getShape(), 0.5f, 0.4f, 0.6f, physicBodyDefinitionComponent.getBody()));
         flappy.addToWorld();
+    }
+
+    public void createGroundEntity() {
+        Entity ground = world.createEntity();
+        PhysicWorldComponent physicWorldComponent = (PhysicWorldComponent) reusableComponents.get(Constants.COMPONENT_PHYSICWORLD);
+        PhysicBodyComponent physicBodyComponent = new PhysicBodyComponent(BodyDef.BodyType.StaticBody, physicWorldComponent.getWorld(), 0, 10);
+        ground.addComponent(physicBodyComponent);
+        LibgdxCameraComponent cameraComponent = (LibgdxCameraComponent) reusableComponents.get(Constants.COMPONENT_CAMERA);
+        BoxShapeComponent boxShapeComponent = new BoxShapeComponent(cameraComponent.getCamera().viewportWidth, 10);
+        ground.addComponent(boxShapeComponent);
+        ground.addComponent(new FixtureComponent(boxShapeComponent.getShape(), physicBodyComponent.getBody()));
+        ground.addToWorld();
     }
 
     public void createDebugInfoEntity() {
@@ -88,12 +109,12 @@ public class WorldManager {
     }
 
     private void setWorldSystems() {
-        world.setSystem(new LibgdxScreenLimitedSystem());
+        //world.setSystem(new LibgdxScreenLimitedSystem());
         world.setSystem(new DrawingSystem());
-        world.setSystem(new GravitySystem());
-        world.setSystem(new SpawnNinjaSystem(reusableComponents));
-        world.setSystem(new LibgdxInputSystem());
-        world.setSystem(new LibgdxVelocitySystem());
+        //world.setSystem(new GravitySystem());
+        //world.setSystem(new SpawnNinjaSystem(reusableComponents));
+        //world.setSystem(new LibgdxInputSystem());
+        //world.setSystem(new LibgdxVelocitySystem());
         world.setSystem(new DebugInfoSystem());
     }
 
@@ -104,12 +125,16 @@ public class WorldManager {
         BitmapFontComponent bitmapFontComponent = new BitmapFontComponent("calibri.png", "calibri.fnt", "fonts");
         SpriteBatchComponent spriteBatchComponent = new SpriteBatchComponent();
         ShapeRendererComponent shapeRendererComponent = new ShapeRendererComponent();
+        PhysicWorldComponent physicWorldComponent = new PhysicWorldComponent(-100);
+        DebugRendererComponent debugRendererComponent = new DebugRendererComponent(physicWorldComponent.getWorld());
 
         reusableComponents.put(Constants.COMPONENT_CAMERA, cameraComponent);
         reusableComponents.put(Constants.COMPONENT_SPRITEBATCH, spriteBatchComponent);
         reusableComponents.put(Constants.COMPONENT_SHAPERENDERER, shapeRendererComponent);
         reusableComponents.put(Constants.COMPONENT_FONT, bitmapFontComponent);
         reusableComponents.put(Constants.COMPONENT_INPUT, new LibgdxInputComponent());
+        reusableComponents.put(Constants.COMPONENT_DEBUGRENDERER, debugRendererComponent);
+        reusableComponents.put(Constants.COMPONENT_PHYSICWORLD, physicWorldComponent);
 
         componentsToDispose.add(bitmapFontComponent);
         componentsToDispose.add(spriteBatchComponent);
@@ -117,6 +142,8 @@ public class WorldManager {
 
         componentsToPrepare.add(shapeRendererComponent);
         componentsToPrepare.add(spriteBatchComponent);
+        componentsToPrepare.add(debugRendererComponent);
+        componentsToPrepare.add(physicWorldComponent);
     }
 
     private void prepareComponents() {

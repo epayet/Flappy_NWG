@@ -1,4 +1,4 @@
-package com.jak.flappy.component.mock;
+package com.jak.flappy.input;
 
 import com.jak.flappy.component.InputComponent;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by manu on 3/7/14.
  */
-public class MockInputComponent extends InputComponent {
+public class MockInputManager extends InputManager {
     private int keyPressed;
     private int keyUpped;
     private float accelerometerY;
@@ -17,7 +17,7 @@ public class MockInputComponent extends InputComponent {
     private boolean touched;
     private boolean touchedUp;
 
-    public MockInputComponent() {
+    public MockInputManager() {
         accelerometerY = 0;
     }
 

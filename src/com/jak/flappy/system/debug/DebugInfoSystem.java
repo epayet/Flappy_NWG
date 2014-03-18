@@ -5,19 +5,18 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jak.flappy.component.CameraComponent;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.debug.DebubInfoComponent;
 import com.jak.flappy.component.graphic.*;
+import com.jak.flappy.input.LibgdxInputManager;
 
 /**
  * Created by manu on 08/03/14.
  */
-public class DebugInfoSystem extends EntityProcessingSystem{
+public class DebugInfoSystem { /*extends EntityProcessingSystem{
     @Mapper
     ComponentMapper<SpriteBatchComponent> spriteBatchMapper;
     @Mapper
@@ -27,7 +26,7 @@ public class DebugInfoSystem extends EntityProcessingSystem{
     @Mapper
     ComponentMapper<LibgdxCameraComponent> cameraMapper;
     @Mapper
-    ComponentMapper<LibgdxInputComponent> inputMapper;
+    ComponentMapper<LibgdxInputManager> inputMapper;
 
     public DebugInfoSystem() {
         super(Aspect.getAspectForAll(DebubInfoComponent.class));
@@ -53,5 +52,5 @@ public class DebugInfoSystem extends EntityProcessingSystem{
         spriteBatch.begin();
         font.draw(spriteBatch, debugStr, 10, camera.getHeight() - 10);
         spriteBatch.end();
-    }
+    }*/
 }

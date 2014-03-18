@@ -2,11 +2,7 @@ package system;
 
 import com.artemis.Entity;
 import com.artemis.World;
-import com.jak.flappy.component.GravityComponent;
 import com.jak.flappy.component.RectangleComponent;
-import com.jak.flappy.component.VelocityComponent;
-import com.jak.flappy.system.GravitySystem;
-import com.jak.flappy.system.VelocitySystem;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;

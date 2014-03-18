@@ -9,13 +9,10 @@ import com.badlogic.gdx.physics.box2d.World;
  * Created by manu on 17/03/14.
  */
 public class PhysicBodyComponent extends Component{
-    private BodyDef bodyDef;
     private Body body;
-    private World world;
 
     public PhysicBodyComponent(BodyDef.BodyType bodyType, World world, float x, float y) {
-        this.world = world;
-        this.bodyDef = new BodyDef();
+        BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
         bodyDef.position.set(x, y);
         body = world.createBody(bodyDef);

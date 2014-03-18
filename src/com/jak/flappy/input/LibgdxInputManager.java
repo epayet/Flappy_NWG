@@ -1,4 +1,4 @@
-package com.jak.flappy.component.graphic;
+package com.jak.flappy.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,12 +8,12 @@ import com.jak.flappy.component.InputComponent;
 /**
  * Created by manu on 08/03/14.
  */
-public class LibgdxInputComponent extends InputComponent{
+public class LibgdxInputManager extends InputManager {
     private boolean keyUpped;
     private int lastKeyUpped;
     private boolean touchUpped;
 
-    public LibgdxInputComponent() {
+    public LibgdxInputManager() {
         MyInputProcessor inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
     }

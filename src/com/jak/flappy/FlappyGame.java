@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.graphic.physics.*;
+import com.jak.flappy.system.graphic.InputSystem;
 import com.jak.flappy.world.FlappyWorld;
 
 /**
@@ -48,6 +49,7 @@ public class FlappyGame implements ApplicationListener {
     private void initializeWorld() {
         world = new FlappyWorld(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         world.initialize();
+        world.setSystem(new InputSystem());
     }
 
     private void createFlappyEntity() {

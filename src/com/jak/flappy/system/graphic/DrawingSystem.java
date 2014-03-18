@@ -8,16 +8,14 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jak.flappy.component.CircleComponent;
-import com.jak.flappy.component.graphic.LibgdxCameraComponent;
 import com.jak.flappy.component.graphic.DrawingComponent;
 import com.jak.flappy.component.RectangleComponent;
-import com.jak.flappy.component.graphic.ShapeRendererComponent;
 
 /**
  * Created by manu on 3/7/14.
  */
-public class DrawingSystem extends EntityProcessingSystem{
-    @Mapper
+public class DrawingSystem {//extends EntityProcessingSystem{
+    /*@Mapper
     ComponentMapper<RectangleComponent> rectangleMapper;
     @Mapper
     ComponentMapper<DrawingComponent> drawingMapper;
@@ -55,5 +53,5 @@ public class DrawingSystem extends EntityProcessingSystem{
 
             shapeRenderer.end();
         }
-    }
+    }*/
 }

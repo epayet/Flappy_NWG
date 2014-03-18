@@ -11,41 +11,14 @@ import com.jak.flappy.component.VelocityComponent;
 /**
  * Created by manu on 3/7/14.
  */
-public abstract class InputSystem extends EntityProcessingSystem{
+public class InputSystem extends EntityProcessingSystem{
 
-    public InputSystem(Aspect aspect) {
-        super(aspect);
+    public InputSystem() {
+        super(Aspect.getAspectForAll(InputComponent.class));
     }
 
     @Override
     protected void process(Entity entity) {
-        InputComponent inputComponent = getInputComponent(entity);
-        VelocityComponent velocity = getVelocityComponent(entity);
 
-        float x = 400;
-        if(inputComponent.isKeyPressed(Input.Keys.RIGHT)) {
-            velocity.setX(x);
-        }
-        else if(inputComponent.isKeyPressed(Input.Keys.LEFT)) {
-            velocity.setX(-x);
-        }
-        else if(inputComponent.isAccelerometerAvailable()) {
-            //between -10 and 10
-            velocity.setX(inputComponent.getAccelerometerY() * 100);
-        }
-        else {
-            velocity.setX(0);
-        }
-
-        if(inputComponent.isKeyUp(Input.Keys.SPACE) || inputComponent.isTouchedUp()) {
-            velocity.setY(5000);
-            if(inputComponent.isKeyPressed(Input.Keys.RIGHT))
-                velocity.setX(1000);
-            else if(inputComponent.isKeyPressed(Input.Keys.LEFT))
-                velocity.setX(-1000);
-        }
     }
-
-    protected abstract InputComponent getInputComponent(Entity entity);
-    protected abstract VelocityComponent getVelocityComponent(Entity entity);
 }

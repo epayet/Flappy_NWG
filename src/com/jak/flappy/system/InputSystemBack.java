@@ -18,7 +18,7 @@ public abstract class InputSystemBack extends EntityProcessingSystem{
 
     @Override
     protected void process(Entity entity) {
-        InputComponent inputComponent = getInputComponent(entity);
+        /*InputComponent inputComponent = getInputComponent(entity);
         VelocityComponent velocity = getVelocityComponent(entity);
 
         float x = 400;
@@ -42,7 +42,7 @@ public abstract class InputSystemBack extends EntityProcessingSystem{
                 velocity.setX(1000);
             else if(inputComponent.isKeyPressed(Input.Keys.LEFT))
                 velocity.setX(-1000);
-        }
+        }*/
     }
 
     protected abstract InputComponent getInputComponent(Entity entity);

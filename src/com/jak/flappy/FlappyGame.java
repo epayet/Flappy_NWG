@@ -5,6 +5,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.graphic.physics.*;
+import com.jak.flappy.system.CenterCameraFlappySystem;
+import com.jak.flappy.system.SpawningNinjaSystem;
 import com.jak.flappy.system.graphic.InputSystem;
 import com.jak.flappy.world.FlappyWorld;
 
@@ -48,22 +50,26 @@ public class FlappyGame implements ApplicationListener {
 
     private void initializeWorld() {
         world = new FlappyWorld(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        //world = new FlappyWorld(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         world.initialize();
-        world.setSystem(new InputSystem());
+        world.setSystem(new CenterCameraFlappySystem(world.getCamera()));
+        world.setSystem(new InputSystem(world.getInputManager()));
+        //world.setSystem(new SpawningNinjaSystem(world.getPhysicWorld()));
     }
 
     private void createFlappyEntity() {
         Entity flappy = world.createEntity();
         float y = Constants.WORLD_HEIGHT / 2;
-        float x = Constants.WORLD_WIDTH / 2;
-        PhysicBodyComponent physicBodyDefinitionComponent = new PhysicBodyComponent(BodyDef.BodyType.DynamicBody, world.getPhysicWorld(), x, y);
+        float x = 20;
+        PhysicBodyComponent physicBodyDefinitionComponent = new PhysicBodyComponent(BodyDef.BodyType.DynamicBody, world.getPhysicWorld(), x, y, true);
         flappy.addComponent(physicBodyDefinitionComponent);
 
         CircleShapeComponent circleShapeComponent = new CircleShapeComponent(20);
         flappy.addComponent(circleShapeComponent);
-        flappy.addComponent(new FixtureComponent(circleShapeComponent.getShape(), 0.5f, 0.4f, 1f, physicBodyDefinitionComponent.getBody()));
+        flappy.addComponent(new FixtureComponent(circleShapeComponent.getShape(), 10f, 0f, 0f, physicBodyDefinitionComponent.getBody()));
         flappy.addComponent(new InputComponent());
         flappy.addToWorld();
+        circleShapeComponent.dispose();
     }
 
     private void createGroundEntity() {
@@ -74,5 +80,6 @@ public class FlappyGame implements ApplicationListener {
         ground.addComponent(boxShapeComponent);
         ground.addComponent(new FixtureComponent(boxShapeComponent.getShape(), physicBodyComponent.getBody()));
         ground.addToWorld();
+        boxShapeComponent.dispose();
     }
 }

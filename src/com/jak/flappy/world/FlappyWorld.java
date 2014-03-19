@@ -42,9 +42,9 @@ public class FlappyWorld extends World {
 
     @Override
     public void process() {
-        prepare();
         setDelta(Gdx.graphics.getDeltaTime());
         super.process();
+        prepare();
     }
 
     public com.badlogic.gdx.physics.box2d.World getPhysicWorld() {
@@ -72,7 +72,7 @@ public class FlappyWorld extends World {
         camera.update();
 
         debugRenderer.render(physicWorld, camera.combined);
-        physicWorld.step(1/60f, 6, 2);
+        physicWorld.step(getDelta(), 8, 6);
     }
 
     private BitmapFont createFont(String fntPng, String fntFnt, String fntPath) {
@@ -80,5 +80,9 @@ public class FlappyWorld extends World {
         String fntPngPath = path + fntPng;
         String fntFntPath = path + fntFnt;
         return new BitmapFont(Gdx.files.internal(fntFntPath),Gdx.files.internal(fntPngPath),false);
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
     }
 }

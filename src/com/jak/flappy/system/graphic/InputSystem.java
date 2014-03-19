@@ -19,20 +19,19 @@ import com.jak.flappy.world.FlappyWorld;
 public class InputSystem extends EntityProcessingSystem{
     @Mapper
     private ComponentMapper<PhysicBodyComponent> physicBodyMapper;
+    private InputManager inputManager;
 
-    public InputSystem() {
+    public InputSystem(InputManager inputManager) {
         super(Aspect.getAspectForAll(InputComponent.class));
+        this.inputManager = inputManager;
     }
 
     @Override
     protected void process(Entity entity) {
-        FlappyWorld flappyWorld = (FlappyWorld)world;
-        InputManager inputManager = flappyWorld.getInputManager();
-
-        if(inputManager.isKeyUp(Input.Keys.SPACE)) {
+        if(inputManager.isKeyUp(Input.Keys.SPACE) || inputManager.isTouchedUp()) {
             PhysicBodyComponent physicBodyComponent = physicBodyMapper.get(entity);
             Body body = physicBodyComponent.getBody();
-            body.applyLinearImpulse(new Vector2(0, 100000), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 10000000f), body.getWorldCenter(), true);
         }
     }
 }

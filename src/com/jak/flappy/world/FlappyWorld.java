@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.jak.flappy.Constants;
+import com.jak.flappy.factory.LibgdxFactory;
 import com.jak.flappy.input.InputManager;
 import com.jak.flappy.input.LibgdxInputManager;
 
@@ -36,7 +37,7 @@ public class FlappyWorld extends World {
         shapeRenderer.setProjectionMatrix(camera.combined);
         spriteBatch = new SpriteBatch();
         spriteBatch.setProjectionMatrix(camera.combined);
-        font = createFont("calibri.png", "calibri.fnt", "fonts");
+        font = LibgdxFactory.createFont("calibri.png", "calibri.fnt", "fonts");
         inputManager = new LibgdxInputManager();
     }
 
@@ -54,6 +55,14 @@ public class FlappyWorld extends World {
         return inputManager;
     }
 
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public Box2DDebugRenderer getDebugRenderer() {
+        return debugRenderer;
+    }
+
     @Override
     public void dispose() {
         debugRenderer.dispose();
@@ -62,20 +71,5 @@ public class FlappyWorld extends World {
         shapeRenderer.dispose();
         spriteBatch.dispose();
         super.dispose();
-    }
-
-    private BitmapFont createFont(String fntPng, String fntFnt, String fntPath) {
-        String path = fntPath == "" ? "" : fntPath + "/";
-        String fntPngPath = path + fntPng;
-        String fntFntPath = path + fntFnt;
-        return new BitmapFont(Gdx.files.internal(fntFntPath),Gdx.files.internal(fntPngPath),false);
-    }
-
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-
-    public Box2DDebugRenderer getDebugRenderer() {
-        return debugRenderer;
     }
 }

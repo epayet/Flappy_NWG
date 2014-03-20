@@ -13,8 +13,8 @@ public class DesktopStarter {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Flappy Ninja With Glasses";
         cfg.useGL20 = true;
-        cfg.width = (int)Constants.WINDOW_WIDTH;
-        cfg.height = (int)Constants.WINDOW_HEIGHT;
+        cfg.width = (int)Constants.WORLD_WIDTH;
+        cfg.height = (int)Constants.WORLD_HEIGHT;
         new LwjglApplication(new FlappyGame(), cfg);
     }
 }

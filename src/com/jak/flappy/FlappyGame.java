@@ -1,15 +1,14 @@
 package com.jak.flappy;
 
 import com.artemis.Entity;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.graphic.physics.*;
 import com.jak.flappy.factory.EntityFactory;
-import com.jak.flappy.system.CenterCameraFlappySystem;
-import com.jak.flappy.system.PreparingSystem;
-import com.jak.flappy.system.SpawningNinjaSystem;
+import com.jak.flappy.system.*;
 import com.jak.flappy.system.graphic.InputSystem;
 import com.jak.flappy.world.FlappyWorld;
 
@@ -21,15 +20,19 @@ public class FlappyGame implements ApplicationListener {
 
     @Override
     public void create() {
-        //world = new FlappyWorld(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        world = new FlappyWorld(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        world = new FlappyWorld(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         world.initialize();
+        world.setManager(new GroupManager());
         world.setSystem(new PreparingSystem(world), false);
         world.setSystem(new CenterCameraFlappySystem(world));
         world.setSystem(new InputSystem(world));
-        //world.setSystem(new SpawningNinjaSystem(world.getPhysicWorld()));
+        world.setSystem(new MovingNinjaSystem());
+        world.setSystem(new SpawningNinjaSystem(0.3f));
         EntityFactory.createFlappy(world);
         EntityFactory.createGround(world);
+        EntityFactory.createRoof(world);
+
+        //EntityFactory.createNinja(world);
     }
 
     @Override

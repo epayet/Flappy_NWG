@@ -11,20 +11,18 @@ import com.badlogic.gdx.physics.box2d.World;
 public class PhysicBodyComponent extends Component{
     private Body body;
 
-    public PhysicBodyComponent(BodyDef.BodyType bodyType, World world, float x, float y) {
-        this(bodyType, world, x, y, false);
-    }
-
-    public PhysicBodyComponent(BodyDef.BodyType bodyType, World world, float x, float y, boolean isBullet) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = bodyType;
-        bodyDef.position.set(x, y);
-        bodyDef.bullet = isBullet;
+    public PhysicBodyComponent(BodyDef bodyDef, World world, boolean isAffectedByGravity) {
         body = world.createBody(bodyDef);
+        setAffectedByGravity(isAffectedByGravity);
     }
 
     public PhysicBodyComponent(BodyDef bodyDef, World world) {
-        body = world.createBody(bodyDef);
+        this(bodyDef, world, true);
+    }
+
+    private void setAffectedByGravity(boolean isAffectedByGravity) {
+        if(!isAffectedByGravity)
+            body.setGravityScale(0);
     }
 
     public Body getBody() {

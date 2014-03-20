@@ -12,4 +12,5 @@ public abstract class InputManager extends Component{
     public abstract boolean isTouched();
     public abstract boolean isTouchedUp();
     public abstract boolean isKeyUp(int key);
+    public abstract void reset();
 }

@@ -64,6 +64,11 @@ public class MockInputManager extends InputManager {
         return keyUpped == key;
     }
 
+    @Override
+    public void reset() {
+
+    }
+
     public void setKeyUp(int key) {
         this.keyUpped = key;
     }

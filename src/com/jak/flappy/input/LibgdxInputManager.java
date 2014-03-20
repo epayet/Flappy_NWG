@@ -40,22 +40,22 @@ public class LibgdxInputManager extends InputManager {
 
     @Override
     public boolean isTouchedUp() {
-        if(touchUpped) {
-            touchUpped = false;
-            return true;
+        return touchUpped;
+    }
+
+    @Override
+    public boolean isKeyUp(int key) {
+        if(keyUpped) {
+            return lastKeyUpped == key;
         }
         else
             return false;
     }
 
     @Override
-    public boolean isKeyUp(int key) {
-        if(keyUpped) {
-            keyUpped = false;
-            return lastKeyUpped == key;
-        }
-        else
-            return false;
+    public void reset() {
+        keyUpped = false;
+        touchUpped = false;
     }
 
     private class MyInputProcessor implements InputProcessor {

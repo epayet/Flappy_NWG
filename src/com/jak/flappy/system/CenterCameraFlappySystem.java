@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.graphic.physics.PhysicBodyComponent;
+import com.jak.flappy.world.FlappyWorld;
 
 /**
  * Created by manu on 3/19/14.
@@ -20,9 +21,9 @@ public class CenterCameraFlappySystem extends EntityProcessingSystem {
     private ComponentMapper<PhysicBodyComponent> physicBodyMapper;
     private OrthographicCamera camera;
 
-    public CenterCameraFlappySystem(OrthographicCamera camera) {
+    public CenterCameraFlappySystem(FlappyWorld flappyWorld) {
         super(Aspect.getAspectForAll(PhysicBodyComponent.class, InputComponent.class));
-        this.camera = camera;
+        this.camera = flappyWorld.getCamera();
     }
 
     @Override

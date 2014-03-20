@@ -21,9 +21,9 @@ public class InputSystem extends EntityProcessingSystem{
     private ComponentMapper<PhysicBodyComponent> physicBodyMapper;
     private InputManager inputManager;
 
-    public InputSystem(InputManager inputManager) {
+    public InputSystem(FlappyWorld flappyWorld) {
         super(Aspect.getAspectForAll(InputComponent.class));
-        this.inputManager = inputManager;
+        this.inputManager = flappyWorld.getInputManager();
     }
 
     @Override

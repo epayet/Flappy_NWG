@@ -23,23 +23,24 @@ public class EntityFactory {
 
     public static Entity createFlappy(FlappyWorld world) {
         Entity flappy = world.createEntity();
-        float y = Constants.WORLD_HEIGHT / 2;
-        float x = 20;
+        //float y = Constants.WORLD_HEIGHT / 2;
+        float y = Constants.WORLD_HEIGHT;
+        float x = 50;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
-        bodyDef.bullet = true;
+        bodyDef.position.set(x * Constants.WORLD_TO_BOX, y * Constants.WORLD_TO_BOX);
+        bodyDef.gravityScale = 0.1f;
         PhysicBodyComponent physicBodyDefinitionComponent = new PhysicBodyComponent(bodyDef, world.getPhysicWorld());
         flappy.addComponent(physicBodyDefinitionComponent);
 
-        CircleShapeComponent circleShapeComponent = new CircleShapeComponent(20);
+        CircleShapeComponent circleShapeComponent = new CircleShapeComponent(30 * Constants.WORLD_TO_BOX);
         flappy.addComponent(circleShapeComponent);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circleShapeComponent.getShape();
-        fixtureDef.density = 10f;
-        fixtureDef.friction = 0;
+        //fixtureDef.density = 1f;
+        //fixtureDef.friction = 0;
         flappy.addComponent(new FixtureComponent(fixtureDef, physicBodyDefinitionComponent.getBody()));
 
         flappy.addComponent(new InputComponent());
@@ -61,11 +62,11 @@ public class EntityFactory {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(0, y);
+        bodyDef.position.set(0, y * Constants.WORLD_TO_BOX);
         PhysicBodyComponent physicBodyComponent = new PhysicBodyComponent(bodyDef, world.getPhysicWorld());
         roof.addComponent(physicBodyComponent);
 
-        BoxShapeComponent boxShapeComponent = new BoxShapeComponent(Constants.WORLD_WIDTH, 10);
+        BoxShapeComponent boxShapeComponent = new BoxShapeComponent(Constants.WORLD_WIDTH * Constants.WORLD_TO_BOX, 10 * Constants.WORLD_TO_BOX);
         roof.addComponent(boxShapeComponent);
 
         FixtureDef fixtureDef = new FixtureDef();
@@ -84,17 +85,18 @@ public class EntityFactory {
         float randomY = MathUtils.random(10, Constants.WORLD_HEIGHT);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(Constants.WORLD_WIDTH, randomY);
+        bodyDef.position.set(Constants.WORLD_WIDTH * Constants.WORLD_TO_BOX, randomY * Constants.WORLD_TO_BOX);
         PhysicBodyComponent physicBodyComponent = new PhysicBodyComponent(bodyDef, world.getPhysicWorld(), false);
 
         ninja.addComponent(physicBodyComponent);
-        BoxShapeComponent boxShapeComponent = new BoxShapeComponent(10, 20);
+        BoxShapeComponent boxShapeComponent = new BoxShapeComponent(10 * Constants.WORLD_TO_BOX, 20 * Constants.WORLD_TO_BOX);
         ninja.addComponent(boxShapeComponent);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShapeComponent.getShape();
         Body body = physicBodyComponent.getBody();
         ninja.addComponent(new FixtureComponent(fixtureDef, body));
+        body.applyLinearImpulse(new Vector2(MathUtils.random(-4, -1), 0), body.getWorldCenter(), true);
 
         ninja.addToWorld();
 

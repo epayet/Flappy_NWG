@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * Created by manu on 3/20/14.
  */
-public class LibgdxFactory {
+public class LibgdxUtils {
     public static BitmapFont createFont(String fntPng, String fntFnt, String fntPath) {
         String path = fntPath == "" ? "" : fntPath + "/";
         String fntPngPath = path + fntPng;

@@ -8,6 +8,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.jak.flappy.Constants;
 import com.jak.flappy.component.InputComponent;
 import com.jak.flappy.component.graphic.physics.PhysicBodyComponent;
 import com.jak.flappy.input.InputManager;
@@ -31,7 +32,21 @@ public class InputSystem extends EntityProcessingSystem{
         if(inputManager.isKeyUp(Input.Keys.SPACE) || inputManager.isTouchedUp()) {
             PhysicBodyComponent physicBodyComponent = physicBodyMapper.get(entity);
             Body body = physicBodyComponent.getBody();
-            body.applyLinearImpulse(new Vector2(0, 10000000f), body.getWorldCenter(), true);
+            float force = 100 * Constants.WORLD_TO_BOX;
+            body.applyLinearImpulse(new Vector2(0, force), body.getWorldCenter(), true);
+            //body.applyForceToCenter(0, force, true);
+
+            /*cceleration += 5;
+        //float force = (-1000000 * world.getDelta() * 1000) - (acceleration * world.getDelta() * 1000);
+        float force =
+                System.out.println("Force : " +  force + ", acceleration : " + acceleration + ", delta : " + world.getDelta());
+
+        if(inputManager.isKeyUp(Input.Keys.SPACE) || inputManager.isTouchedUp()) {
+            force = 100;
+            acceleration = 0;
+        }
+        body.applyLinearImpulse(new Vector2(0, force), body.getWorldCenter(), true);
+        //body.applyForceToCenter(0, force, true);*/
         }
     }
 }

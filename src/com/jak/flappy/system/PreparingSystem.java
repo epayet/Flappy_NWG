@@ -4,8 +4,10 @@ import com.artemis.systems.VoidEntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.jak.flappy.Constants;
 import com.jak.flappy.world.FlappyWorld;
 
 /**
@@ -29,7 +31,8 @@ public class PreparingSystem extends VoidEntitySystem{
 
         camera.update();
 
-        debugRenderer.render(physicWorld, camera.combined);
-        physicWorld.step(world.getDelta(), 8, 6);
+        Matrix4 cameraCopy = camera.combined.cpy();
+        debugRenderer.render(physicWorld, cameraCopy.scl(Constants.BOX_TO_WORLD));
+        physicWorld.step(world.getDelta(), 6, 2);
     }
 }

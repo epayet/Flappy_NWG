@@ -26,8 +26,8 @@ public class FlappyGame implements ApplicationListener {
         world.setSystem(new PreparingSystem(world), false);
         world.setSystem(new CenterCameraFlappySystem(world));
         world.setSystem(new InputSystem(world));
-        world.setSystem(new MovingNinjaSystem());
-        world.setSystem(new SpawningNinjaSystem(0.3f));
+        //world.setSystem(new MovingNinjaSystem());
+        world.setSystem(new SpawningNinjaSystem(0.5f));
         EntityFactory.createFlappy(world);
         EntityFactory.createGround(world);
         EntityFactory.createRoof(world);

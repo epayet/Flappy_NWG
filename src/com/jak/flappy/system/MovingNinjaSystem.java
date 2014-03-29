@@ -25,7 +25,9 @@ public class MovingNinjaSystem extends EntityProcessingSystem {
         GroupManager groupManager = world.getManager(GroupManager.class);
         if(groupManager.isInGroup(entity, Constants.GROUP_NINJA)) {
             PhysicBodyComponent physicBodyComponent = physicBodyComponentMapper.get(entity);
-            physicBodyComponent.getBody().applyForceToCenter(-10000, 0, false);
+            float forceX = -10 * world.getDelta();
+            System.out.println(forceX);
+            physicBodyComponent.getBody().applyForceToCenter(forceX, 0, false);
         }
     }
 }

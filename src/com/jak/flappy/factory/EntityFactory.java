@@ -9,11 +9,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.jak.flappy.Constants;
+import com.jak.flappy.component.FlappyComponent;
 import com.jak.flappy.component.InputComponent;
-import com.jak.flappy.component.graphic.physics.BoxShapeComponent;
-import com.jak.flappy.component.graphic.physics.CircleShapeComponent;
-import com.jak.flappy.component.graphic.physics.FixtureComponent;
-import com.jak.flappy.component.graphic.physics.PhysicBodyComponent;
+import com.jak.flappy.component.graphic.physics.*;
 import com.jak.flappy.world.FlappyWorld;
 
 /**
@@ -41,41 +39,47 @@ public class EntityFactory {
         fixtureDef.shape = circleShapeComponent.getShape();
         //fixtureDef.density = 1f;
         //fixtureDef.friction = 0;
-        flappy.addComponent(new FixtureComponent(fixtureDef, physicBodyDefinitionComponent.getBody()));
+        FixtureComponent fixtureComponent = new FixtureComponent(fixtureDef, physicBodyDefinitionComponent.getBody());
+        flappy.addComponent(fixtureComponent);
 
         flappy.addComponent(new InputComponent());
+        flappy.addComponent(new FlappyComponent());
+        flappy.addComponent(new ContactComponent(Constants.CONTACT_FLAPPY, fixtureComponent.getFixture()));
         flappy.addToWorld();
         circleShapeComponent.dispose();
         return flappy;
     }
 
     public static Entity createGround(FlappyWorld world) {
-        return createWall(world, 10);
+        Entity ground = createWall(world, 10, Constants.CONTACT_GROUND);
+        return ground;
     }
 
     public static Entity createRoof(FlappyWorld world) {
-        return createWall(world, Constants.WORLD_HEIGHT + 10);
+        return createWall(world, Constants.WORLD_HEIGHT + 10, Constants.CONTACT_ROOF);
     }
 
-    private static Entity createWall(FlappyWorld world, float y) {
-        Entity roof = world.createEntity();
+    private static Entity createWall(FlappyWorld world, float y, String contactName) {
+        Entity wall = world.createEntity();
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0, y * Constants.WORLD_TO_BOX);
         PhysicBodyComponent physicBodyComponent = new PhysicBodyComponent(bodyDef, world.getPhysicWorld());
-        roof.addComponent(physicBodyComponent);
+        wall.addComponent(physicBodyComponent);
 
         BoxShapeComponent boxShapeComponent = new BoxShapeComponent(Constants.WORLD_WIDTH * Constants.WORLD_TO_BOX, 10 * Constants.WORLD_TO_BOX);
-        roof.addComponent(boxShapeComponent);
+        wall.addComponent(boxShapeComponent);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShapeComponent.getShape();
-        roof.addComponent(new FixtureComponent(fixtureDef, physicBodyComponent.getBody()));
+        FixtureComponent fixtureComponent = new FixtureComponent(fixtureDef, physicBodyComponent.getBody());
+        wall.addComponent(fixtureComponent);
+        wall.addComponent(new ContactComponent(contactName, fixtureComponent.getFixture()));
 
-        roof.addToWorld();
+        wall.addToWorld();
         boxShapeComponent.dispose();
-        return roof;
+        return wall;
     }
 
     public static Entity createNinja(FlappyWorld world) {
@@ -95,8 +99,11 @@ public class EntityFactory {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boxShapeComponent.getShape();
         Body body = physicBodyComponent.getBody();
-        ninja.addComponent(new FixtureComponent(fixtureDef, body));
+        FixtureComponent fixtureComponent = new FixtureComponent(fixtureDef, body);
+        ninja.addComponent(fixtureComponent);
         body.applyLinearImpulse(new Vector2(MathUtils.random(-4, -1), 0), body.getWorldCenter(), true);
+
+        ninja.addComponent(new ContactComponent(Constants.CONTACT_NINJA, fixtureComponent.getFixture()));
 
         ninja.addToWorld();
 

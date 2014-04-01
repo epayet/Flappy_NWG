@@ -24,10 +24,11 @@ public class FlappyGame implements ApplicationListener {
         world.initialize();
         world.setManager(new GroupManager());
         world.setSystem(new PreparingSystem(world), false);
+        world.setSystem(new ContactSystem(world), false);
         world.setSystem(new CenterCameraFlappySystem(world));
         world.setSystem(new InputSystem(world));
-        //world.setSystem(new MovingNinjaSystem());
-        world.setSystem(new SpawningNinjaSystem(0.5f));
+        //world.setSystem(new SpawningNinjaSystem(0.5f));
+        world.setSystem(new DeathSystem());
         EntityFactory.createFlappy(world);
         EntityFactory.createGround(world);
         EntityFactory.createRoof(world);
@@ -39,6 +40,7 @@ public class FlappyGame implements ApplicationListener {
     public void render() {
         world.setDelta(Gdx.graphics.getDeltaTime());
         world.getSystem(PreparingSystem.class).process();
+        world.getSystem(ContactSystem.class).process();
         world.process();
     }
 

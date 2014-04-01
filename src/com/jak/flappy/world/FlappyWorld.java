@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.jak.flappy.factory.LibgdxUtils;
-import com.jak.flappy.input.InputManager;
-import com.jak.flappy.input.LibgdxInputManager;
+import com.jak.flappy.manager.ContactManager;
+import com.jak.flappy.manager.input.InputManager;
+import com.jak.flappy.manager.input.LibgdxInputManager;
 
 /**
  * Created by manu on 3/18/14.
@@ -19,6 +20,7 @@ public class FlappyWorld extends World {
     private final SpriteBatch spriteBatch;
     private final OrthographicCamera camera;
     private final Box2DDebugRenderer debugRenderer;
+    private final ContactManager contactManager;
     private BitmapFont font;
     private final ShapeRenderer shapeRenderer;
     private final InputManager inputManager;
@@ -35,12 +37,14 @@ public class FlappyWorld extends World {
         spriteBatch.setProjectionMatrix(camera.combined);
         font = LibgdxUtils.createFont("calibri.png", "calibri.fnt", "fonts");
         inputManager = new LibgdxInputManager();
+        contactManager = new ContactManager(physicWorld);
     }
 
     @Override
     public void process() {
         super.process();
         inputManager.reset();
+        contactManager.reset();
     }
 
     public com.badlogic.gdx.physics.box2d.World getPhysicWorld() {
@@ -67,5 +71,9 @@ public class FlappyWorld extends World {
         shapeRenderer.dispose();
         spriteBatch.dispose();
         super.dispose();
+    }
+
+    public ContactManager getContactManager() {
+        return contactManager;
     }
 }

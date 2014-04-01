@@ -1,18 +1,5 @@
 package com.jak.flappy.system.debug;
 
-import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
-import com.artemis.Entity;
-import com.artemis.annotations.Mapper;
-import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jak.flappy.component.InputComponent;
-import com.jak.flappy.component.debug.DebubInfoComponent;
-import com.jak.flappy.component.graphic.*;
-import com.jak.flappy.input.LibgdxInputManager;
-
 /**
  * Created by manu on 08/03/14.
  */

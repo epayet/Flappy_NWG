@@ -1,4 +1,4 @@
-package com.jak.flappy.input;
+package com.jak.flappy.manager.input;
 
 import com.artemis.Component;
 

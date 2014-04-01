@@ -12,4 +12,8 @@ public class FixtureComponent extends Component {
     public FixtureComponent(FixtureDef fixtureDef, Body body) {
         fixture = body.createFixture(fixtureDef);
     }
+
+    public Fixture getFixture() {
+        return fixture;
+    }
 }

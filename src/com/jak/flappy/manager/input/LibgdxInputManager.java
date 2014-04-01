@@ -1,9 +1,8 @@
-package com.jak.flappy.input;
+package com.jak.flappy.manager.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.jak.flappy.component.InputComponent;
 
 /**
  * Created by manu on 08/03/14.

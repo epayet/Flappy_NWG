@@ -9,4 +9,8 @@ public class Constants {
     public static final float WORLD_TO_BOX = 0.01f;
     public static final float BOX_TO_WORLD = 100f;
     public static final String GROUP_NINJA = "ninja";
+    public static final String CONTACT_FLAPPY = "flappy";
+    public static final String CONTACT_GROUND = "ground";
+    public static final String CONTACT_NINJA = "ninja";
+    public static final String CONTACT_ROOF = "roof";
 }

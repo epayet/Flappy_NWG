@@ -1,10 +1,4 @@
-package com.jak.flappy.input;
-
-import com.jak.flappy.component.InputComponent;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+package com.jak.flappy.manager.input;
 
 /**
  * Created by manu on 3/7/14.

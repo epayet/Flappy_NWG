@@ -14,6 +14,10 @@ public class PositionComponent extends Component {
         this.y = y;
     }
 
+    public PositionComponent() {
+        this(0, 0);
+    }
+
     public float getY() {
         return y;
     }

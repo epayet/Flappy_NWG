@@ -3,6 +3,8 @@ package com.jak.flappy.manager.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by manu on 08/03/14.
@@ -55,6 +57,11 @@ public class LibgdxInputManager extends InputManager {
     public void reset() {
         keyUpped = false;
         touchUpped = false;
+    }
+
+    @Override
+    public Vector3 getCursorPosition() {
+        return new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
     }
 
     private class MyInputProcessor implements InputProcessor {

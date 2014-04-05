@@ -1,4 +1,4 @@
-package com.jak.flappy.system;
+package com.jak.flappy.system.physics;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -6,7 +6,7 @@ import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.jak.flappy.component.graphic.physics.ContactComponent;
+import com.jak.flappy.component.physics.ContactComponent;
 import com.jak.flappy.manager.ContactManager;
 import com.jak.flappy.world.FlappyWorld;
 

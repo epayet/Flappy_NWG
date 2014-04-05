@@ -1,5 +1,8 @@
 package com.jak.flappy.manager.input;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
 /**
  * Created by manu on 3/7/14.
  */
@@ -61,6 +64,11 @@ public class MockInputManager extends InputManager {
     @Override
     public void reset() {
 
+    }
+
+    @Override
+    public Vector3 getCursorPosition() {
+        return null;
     }
 
     public void setKeyUp(int key) {

@@ -76,4 +76,16 @@ public class FlappyWorld extends World {
     public ContactManager getContactManager() {
         return contactManager;
     }
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
+
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
 }

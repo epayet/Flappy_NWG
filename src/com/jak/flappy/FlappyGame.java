@@ -1,15 +1,22 @@
 package com.jak.flappy;
 
-import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.jak.flappy.component.InputComponent;
-import com.jak.flappy.component.graphic.physics.*;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.jak.flappy.factory.EntityFactory;
 import com.jak.flappy.system.*;
-import com.jak.flappy.system.graphic.InputSystem;
+import com.jak.flappy.system.MovingFlappySystem;
+import com.jak.flappy.system.death.CheckDeathSystem;
+import com.jak.flappy.system.death.ShowDeathSystem;
+import com.jak.flappy.system.death.UpdateShowReplayButton;
+import com.jak.flappy.system.ninja.DeleteNinjaSystem;
+import com.jak.flappy.system.ninja.SpawningNinjaSystem;
+import com.jak.flappy.system.physics.ContactSystem;
+import com.jak.flappy.system.physics.UpdatePositionComponent;
+import com.jak.flappy.system.score.ShowScoreSystem;
+import com.jak.flappy.system.score.UpdateScoreSystem;
+import com.jak.flappy.system.ui.DrawButtonSystem;
 import com.jak.flappy.world.FlappyWorld;
 
 /**
@@ -17,6 +24,7 @@ import com.jak.flappy.world.FlappyWorld;
  */
 public class FlappyGame implements ApplicationListener {
     private FlappyWorld world;
+    private FPSLogger fpsLogger;
 
     @Override
     public void create() {
@@ -25,15 +33,26 @@ public class FlappyGame implements ApplicationListener {
         world.setManager(new GroupManager());
         world.setSystem(new PreparingSystem(world), false);
         world.setSystem(new ContactSystem(world), false);
-        world.setSystem(new CenterCameraFlappySystem(world));
-        world.setSystem(new InputSystem(world));
-        //world.setSystem(new SpawningNinjaSystem(0.5f));
-        world.setSystem(new DeathSystem());
+        world.setSystem(new UpdatePositionComponent());
+        world.setSystem(new MovingFlappySystem(world));
+        world.setSystem(new SpawningNinjaSystem(0.5f));
+        world.setSystem(new CheckDeathSystem());
+        world.setSystem(new UpdateScoreSystem());
+        world.setSystem(new ShowScoreSystem(world));
+        world.setSystem(new DeleteNinjaSystem());
+        world.setSystem(new ShowDeathSystem(world));
+        world.setSystem(new UpdateShowReplayButton());
+        world.setSystem(new DrawButtonSystem(world));
+        //world.setSystem(new DebugInfoSystem(world));
         EntityFactory.createFlappy(world);
         EntityFactory.createGround(world);
         EntityFactory.createRoof(world);
+        EntityFactory.createScore(world);
+        EntityFactory.createReplayButton(world);
 
         //EntityFactory.createNinja(world);
+
+        fpsLogger = new FPSLogger();
     }
 
     @Override
@@ -42,6 +61,8 @@ public class FlappyGame implements ApplicationListener {
         world.getSystem(PreparingSystem.class).process();
         world.getSystem(ContactSystem.class).process();
         world.process();
+
+        //fpsLogger.log();
     }
 
     @Override

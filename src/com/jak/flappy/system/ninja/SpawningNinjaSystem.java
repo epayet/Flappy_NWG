@@ -1,20 +1,15 @@
-package com.jak.flappy.system;
+package com.jak.flappy.system.ninja;
 
 import com.artemis.Aspect;
 import com.artemis.Entity;
-import com.artemis.EntitySystem;
+import com.artemis.managers.GroupManager;
 import com.artemis.systems.IntervalEntitySystem;
-import com.artemis.systems.VoidEntitySystem;
 import com.artemis.utils.ImmutableBag;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.jak.flappy.Constants;
-import com.jak.flappy.component.graphic.physics.BoxShapeComponent;
-import com.jak.flappy.component.graphic.physics.FixtureComponent;
-import com.jak.flappy.component.graphic.physics.PhysicBodyComponent;
+import com.jak.flappy.component.DeathComponent;
 import com.jak.flappy.factory.EntityFactory;
 import com.jak.flappy.world.FlappyWorld;
+import com.jak.flappy.world.FlappyWorldUtils;
 
 /**
  * Created by manu on 3/19/14.
@@ -27,6 +22,7 @@ public class SpawningNinjaSystem extends IntervalEntitySystem {
 
     @Override
     protected void processEntities(ImmutableBag<Entity> entities) {
-        EntityFactory.createNinja((FlappyWorld) world);
+        if(!FlappyWorldUtils.isFlappyDead(world))
+            EntityFactory.createNinja((FlappyWorld) world);
     }
 }

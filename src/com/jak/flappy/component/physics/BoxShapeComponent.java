@@ -1,4 +1,4 @@
-package com.jak.flappy.component.graphic.physics;
+package com.jak.flappy.component.physics;
 
 import com.artemis.Component;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
